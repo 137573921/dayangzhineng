@@ -1,0 +1,4 @@
+Flask==2.3.3
+gunicorn==21.2.0  # Render强制WSGI启动工具
+requests
+python-dotenv
