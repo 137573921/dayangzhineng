@@ -1,0 +1,30 @@
+{% extends 'base.html' %}
+
+{% block title %}关于我们 | {{ company.name }}{% endblock %}
+
+{% block content %}
+<section class="hero">
+  <h1>关于大洋</h1>
+  <p>以技术为根，以创新为魂，赋能行业数字化转型</p>
+</section>
+
+<section class="section">
+  <div class="container">
+    <div class="about-grid">
+      <div class="about-text">
+        <p>{{ company.name }}成立于 {{ company.founded }} 年，是一家专注于人工智能、物联网与大数据技术的高新技术企业。公司总部位于深圳，在北京、上海、成都设有研发中心。</p>
+        <p>我们秉持"技术驱动、场景落地"的理念，累计服务超过 500 家政企客户，拥有 200 余项核心专利与软件著作权，800+ 人的研发团队，服务可用性达 99.99%。</p>
+        <p>通过 ISO 27001 信息安全管理体系与 CMMI5 认证，为客户的数字化转型提供可靠保障。</p>
+      </div>
+      <div class="adv-list">
+        {% for adv in advantages %}
+        <div class="adv-item">
+          <b>{{ adv.title }}</b>
+          <span>{{ adv.desc }}</span>
+        </div>
+        {% endfor %}
+      </div>
+    </div>
+  </div>
+</section>
+{% endblock %}

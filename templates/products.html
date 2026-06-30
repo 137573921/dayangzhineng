@@ -1,0 +1,30 @@
+{% extends 'base.html' %}
+
+{% block title %}产品服务 | {{ company.name }}{% endblock %}
+
+{% block content %}
+<section class="hero">
+  <h1>产品与服务</h1>
+  <p>从边缘感知到云端智能，构建覆盖全场景的产品体系。</p>
+</section>
+
+<section class="section">
+  <div class="container">
+    <h2 class="section-title">全栈智能产品矩阵</h2>
+    <p class="section-sub">为企业数字化转型提供坚实底座</p>
+    <div class="grid-4">
+      {% for product in products %}
+      <div class="card">
+        <h3>{{ product.name }}</h3>
+        <p>{{ product.desc }}</p>
+        <div class="tags">
+          {% for tag in product.tags %}
+          <span>{{ tag }}</span>
+          {% endfor %}
+        </div>
+      </div>
+      {% endfor %}
+    </div>
+  </div>
+</section>
+{% endblock %}

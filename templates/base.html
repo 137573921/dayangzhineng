@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>{% block title %}{{ company.name }}{% endblock %}</title>
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body { font-family: -apple-system, "PingFang SC", "Microsoft YaHei", sans-serif; color: #1a1a2e; line-height: 1.7; }
+    a { color: inherit; text-decoration: none; }
+    ul { list-style: none; }
+    .container { max-width: 1100px; margin: 0 auto; padding: 0 20px; }
+    .section { padding: 70px 0; }
+    .section-title { font-size: 28px; text-align: center; margin-bottom: 8px; }
+    .section-sub { text-align: center; color: #666; margin-bottom: 40px; }
+    nav { position: fixed; top: 0; left: 0; right: 0; background: rgba(255,255,255,.95); z-index: 100; box-shadow: 0 1px 0 #eee; }
+    .nav-inner { display: flex; align-items: center; justify-content: space-between; height: 60px; }
+    .logo { font-size: 18px; font-weight: 700; }
+    .logo span { color: #2563eb; }
+    .nav-links { display: flex; gap: 28px; }
+    .nav-links a { font-size: 14px; color: #555; transition: color .2s; }
+    .nav-links a:hover, .nav-links a.active { color: #2563eb; }
+    .nav-toggle { display: none; background: none; border: none; font-size: 22px; cursor: pointer; }
+    .hero { background: linear-gradient(135deg, #0b1220, #1a3a5c); color: #fff; text-align: center; padding: 140px 20px 80px; }
+    .hero h1 { font-size: 38px; margin-bottom: 16px; }
+    .hero p { font-size: 16px; opacity: .85; max-width: 560px; margin: 0 auto 28px; }
+    .btn { display: inline-block; padding: 12px 30px; border-radius: 6px; font-size: 15px; font-weight: 600; cursor: pointer; border: none; transition: background .2s; }
+    .btn-primary { background: #2563eb; color: #fff; }
+    .btn-primary:hover { background: #1d4ed8; }
+    .grid-4 { display: grid; grid-template-columns: repeat(4, 1fr); gap: 20px; }
+    .grid-2 { display: grid; grid-template-columns: repeat(2, 1fr); gap: 20px; }
+    .card { background: #fff; border: 1px solid #eee; border-radius: 10px; padding: 28px 20px; transition: box-shadow .25s, transform .25s; }
+    .card:hover { box-shadow: 0 8px 24px rgba(0,0,0,.08); transform: translateY(-3px); }
+    .card h3 { font-size: 17px; margin-bottom: 8px; }
+    .card p { font-size: 14px; color: #666; }
+    .tags { display: flex; flex-wrap: wrap; gap: 6px; margin-top: 12px; }
+    .tags span { font-size: 12px; padding: 3px 10px; border-radius: 999px; background: #f0f4f8; color: #64748b; }
+    #solutions { background: #f7f8fa; }
+    .sol-card { background: #0f2547; color: #fff; border-radius: 10px; padding: 30px; transition: transform .25s; }
+    .sol-card:hover { transform: translateY(-3px); }
+    .sol-card h3 { font-size: 19px; margin-bottom: 8px; }
+    .sol-card p { font-size: 14px; opacity: .8; }
+    .about-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 40px; }
+    .about-text p { color: #666; margin-bottom: 16px; }
+    .adv-list { display: grid; gap: 16px; }
+    .adv-item { border-left: 3px solid #2563eb; padding-left: 16px; }
+    .adv-item b { display: block; font-size: 15px; margin-bottom: 2px; }
+    .adv-item span { font-size: 14px; color: #666; }
+    #contact { background: #f7f8fa; }
+    .contact-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 40px; align-items: start; }
+    .contact-info .item { margin-bottom: 16px; }
+    .contact-info .item b { display: block; font-size: 13px; color: #999; }
+    .contact-info .item span { font-size: 15px; }
+    form { display: grid; gap: 12px; }
+    input, textarea, select { width: 100%; padding: 11px 14px; border: 1px solid #ddd; border-radius: 6px; font-size: 14px; font-family: inherit; }
+    input:focus, textarea:focus, select:focus { outline: none; border-color: #2563eb; }
+    form .btn { margin-top: 4px; justify-content: center; }
+    .flash { padding: 14px 20px; border-radius: 6px; margin-bottom: 20px; font-size: 14px; }
+    .flash.success { background: #dcfce7; color: #166534; border: 1px solid #86efac; }
+    .flash.error { background: #fee2e2; color: #991b1b; border: 1px solid #fca5a5; }
+    .not-found { text-align: center; padding: 160px 20px 80px; }
+    .not-found h1 { font-size: 72px; color: #2563eb; }
+    .not-found p { color: #666; margin: 12px 0 24px; }
+    footer { background: #0b1220; color: #888; padding: 40px 0 24px; text-align: center; font-size: 13px; }
+    @media (max-width: 768px) {
+      .nav-links { display: none; position: absolute; top: 60px; left: 0; right: 0; background: #fff; flex-direction: column; padding: 16px 20px; box-shadow: 0 4px 12px rgba(0,0,0,.1); gap: 14px; }
+      .nav-links.open { display: flex; }
+      .nav-toggle { display: block; }
+      .grid-4, .grid-2, .contact-grid, .about-grid { grid-template-columns: 1fr; }
+      .hero h1 { font-size: 28px; }
+    }
+  </style>
+</head>
+<body>
+
+<!-- 导航栏 -->
+<nav>
+  <div class="container nav-inner">
+    <a href="{{ url_for('index') }}" class="logo">大洋<span>智能科技</span></a>
+    <ul class="nav-links" id="navLinks">
+      {% for link in nav_links %}
+      <li><a href="{{ url_for(link.url) }}" class="{{ 'active' if active == link.url else '' }}">{{ link.label }}</a></li>
+      {% endfor %}
+    </ul>
+    <button class="nav-toggle" aria-label="菜单">☰</button>
+  </div>
+</nav>
+
+<!-- 主内容 -->
+<main>
+  {% block content %}{% endblock %}
+</main>
+
+<!-- 页脚 -->
+<footer>
+  <p>© 2026 {{ company.name }}有限公司 版权所有 · 粤ICP备2026XXXXXX号</p>
+</footer>
+
+<script>
+  document.querySelector('.nav-toggle').addEventListener('click', function () {
+    document.getElementById('navLinks').classList.toggle('open');
+  });
+  document.querySelectorAll('#navLinks a').forEach(function (link) {
+    link.addEventListener('click', function () {
+      document.getElementById('navLinks').classList.remove('open');
+    });
+  });
+</script>
+</body>
+</html>

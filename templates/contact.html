@@ -1,0 +1,39 @@
+{% extends 'base.html' %}
+
+{% block title %}联系我们 | {{ company.name }}{% endblock %}
+
+{% block content %}
+<section class="hero">
+  <h1>联系我们</h1>
+  <p>开启您的智能化之旅，专业团队随时为您服务</p>
+</section>
+
+<section class="section" id="contact">
+  <div class="container">
+    <!-- Flash 消息 -->
+    {% with messages = get_flashed_messages(with_categories=true) %}
+      {% if messages %}
+        {% for category, message in messages %}
+        <div class="flash {{ category }}">{{ message }}</div>
+        {% endfor %}
+      {% endif %}
+    {% endwith %}
+
+    <div class="contact-grid">
+      <div class="contact-info">
+        <div class="item"><b>公司地址</b><span>{{ contact_info.address }}</span></div>
+        <div class="item"><b>联系电话</b><span>{{ contact_info.phone }}</span></div>
+        <div class="item"><b>电子邮箱</b><span>{{ contact_info.email }}</span></div>
+        <div class="item"><b>服务时间</b><span>{{ contact_info.hours }}</span></div>
+      </div>
+      <form method="POST" action="{{ url_for('contact') }}">
+        <input type="text" name="name" placeholder="姓名 *" required>
+        <input type="tel" name="phone" placeholder="手机号 *" required>
+        <input type="text" name="company" placeholder="公司名称">
+        <textarea name="message" placeholder="请简要描述您的需求" rows="4"></textarea>
+        <button type="submit" class="btn btn-primary">提交咨询</button>
+      </form>
+    </div>
+  </div>
+</section>
+{% endblock %}

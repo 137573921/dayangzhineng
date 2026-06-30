@@ -1,0 +1,25 @@
+{% extends 'base.html' %}
+
+{% block title %}解决方案 | {{ company.name }}{% endblock %}
+
+{% block content %}
+<section class="hero">
+  <h1>解决方案</h1>
+  <p>针对不同行业的痛点与需求，提供量身定制的智能化解决方案。</p>
+</section>
+
+<section class="section" id="solutions">
+  <div class="container">
+    <h2 class="section-title">深耕行业，场景落地</h2>
+    <p class="section-sub">已在全国数百个项目中成功落地</p>
+    <div class="grid-2">
+      {% for sol in solutions %}
+      <div class="sol-card">
+        <h3>{{ sol.name }}</h3>
+        <p>{{ sol.desc }}</p>
+      </div>
+      {% endfor %}
+    </div>
+  </div>
+</section>
+{% endblock %}
